@@ -26,3 +26,8 @@ export type TEvent = {
 
 // What the endpoints will return
 export type TEndpointResponse = TEvent | TEvent[];
+
+export type User = {
+  username: string;
+  password: string;
+}
