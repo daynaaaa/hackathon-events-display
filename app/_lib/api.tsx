@@ -2,7 +2,7 @@ import { TEndpointResponse, TEvent } from "./types";
 
 const API_BASE_URL = "https://api.hackthenorth.com/v3";
 
-// Get array of all events
+// Fetch array of all events
 export const getEvents = async (): Promise<TEvent[]> => {
   try {
     console.log("Fetching events...");
@@ -17,7 +17,8 @@ export const getEvents = async (): Promise<TEvent[]> => {
   }
 };
 
-// Get event by id
+// Fetch event by id
+// Throws error if fails
 export const getEvent = async (id: number): Promise<TEvent> => {
   try {
     console.log("Fetching event by id: ", id);

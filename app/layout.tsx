@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hackathon Global | Events",
+  title: "Hackathon Global",
 };
 
 export default function RootLayout({

@@ -12,6 +12,8 @@ const Event = ({ id }: { id: number }) => {
   const { user } = useAuth();
   const [isValidEvent, setIsValidEvent] = useState<boolean>(true);
 
+  // Fetch event upon render
+  // If fetch fails, sets isValidEvent to false
   useEffect(() => {
     const fetchEvent = async () => {
       try {
@@ -28,7 +30,7 @@ const Event = ({ id }: { id: number }) => {
     <div className="bg-white max-w-200 rounded-lg p-4 mx-auto opacity-60 hover:opacity-100 text-sky-950 hover:text-sky-700 drop-shadow-lg">
       {event &&
       isValidEvent &&
-      //check if event is private and user is not logged in
+      // check if event is private and user is not logged in
       !(event.permission == "private" && user == null) ? (
         <Link href={`/event/${event.id}`}>
           <h1 className="text-xl font-bold text-left">{event.name}</h1>

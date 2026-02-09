@@ -68,7 +68,7 @@ const EventPage = ({ params }: { params: Promise<{ id: number }> }) => {
         <div className="text-center text-2xl pt-50">Loading...</div>
       ) : event &&
         isValidEvent &&
-        //check if event is private and user is not logged in
+        // check if event is private and user is not logged in
         !(event.permission == "private" && user == null) ? (
         <div className="mx-20">
           <h1 className="text-3xl font-bold text-left">{event.name}</h1>
@@ -134,6 +134,7 @@ const EventPage = ({ params }: { params: Promise<{ id: number }> }) => {
           <div className="my-5">
             <p>{event.description}</p>
           </div>
+
           {/* Speaker list conditionally renders if > 0 speakers */}
           {event.speakers.length > 0 ? (
             <div className="my-20">

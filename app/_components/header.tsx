@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useAuth } from "../_hooks/useAuth";
 import { User } from "../_lib/types";
 
+// Hard-coded user information
 const admin: User = { username: "hacker", password: "htn2026" };
 
 const Header = () => {
@@ -21,7 +22,7 @@ const Header = () => {
             Login
           </button>
         ) : (
-          <div className="flex flex-wrap gap-5">
+          <div className="flex flex-wrap md:gap-5 sm:gap-0">
             <div className="my-auto">Logged in as: {user.username}</div>
             <button
               className="border rounded-xl px-2 py-1 hover:bg-sky-400 hover:text-sky-100"

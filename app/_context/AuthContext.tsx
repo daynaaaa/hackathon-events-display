@@ -11,8 +11,10 @@ interface AuthContext {
 export const AuthContext = createContext<AuthContext | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  // User object
   const [user, setUser] = useState<User | null>(null);
 
+  // Fetch user from localStorage upon render
   useEffect(() => {
     const fetchUser = async () => {
       const loggedInUser = localStorage.getItem("user");
@@ -24,11 +26,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     fetchUser();
   }, []);
 
+  // Allow user to login
   const login = (user: User) => {
     setUser(user);
     localStorage.setItem("user", user.username);
   };
 
+  // Allow user to logout
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");

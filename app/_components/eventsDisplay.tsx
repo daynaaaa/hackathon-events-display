@@ -6,6 +6,7 @@ import Event from "@/app/_components/eventBox";
 const EventsDisplay = () => {
   const [events, setEvents] = useState<TEvent[]>([]); // Array of all events
 
+  // Fetch events array upon render
   useEffect(() => {
     const fetchEvents = async () => {
       const res = await getEvents();
@@ -13,6 +14,7 @@ const EventsDisplay = () => {
     };
     fetchEvents();
   }, []);
+
   return (
     <div className="flex flex-col gap-5 mx-20 justify-center">
       {events
