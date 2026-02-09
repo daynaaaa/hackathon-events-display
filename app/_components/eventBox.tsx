@@ -2,37 +2,34 @@ import { useEffect, useState } from "react";
 import { getEvent } from "@/app/_lib/api";
 import { TEvent } from "@/app/_lib/types";
 import { useAuth } from "../_hooks/useAuth";
+import Link from "next/link";
+import { toTitleCase } from "../_lib/toTitleCase";
 
 const Event = ({ id }: { id: number }) => {
   const [event, setEvent] = useState<TEvent>(); // Array of all events
   const { user } = useAuth();
+  const [isValidEvent, setIsValidEvent] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchEvent = async () => {
-      const res = await getEvent(id);
-      setEvent(res);
+      try {
+        const res = await getEvent(id);
+        setEvent(res);
+      } catch {
+        setIsValidEvent(false);
+      }
     };
     fetchEvent();
   }, []);
 
-  //also need in event/page!!! how to do??
-  const toTitleCase = (str: string) => {
-    return str
-      .replace("_", " ")
-      .replace("_", " ")
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(" ");
-  };
-
   return (
-    <div className="bg-white m-3 w-80 rounded-lg p-4">
+    <div className="bg-white max-w-200 rounded-lg p-4 mx-auto opacity-60 hover:opacity-100 text-sky-950 hover:text-sky-700 drop-shadow-lg">
       {event &&
-      event?.id != -1 &&
+      isValidEvent &&
       //check if event is private and user is not logged in
       !(event.permission == "private" && user == null) ? (
-        <button>
-          <h1 className="text-xl font-bold">{event.name}</h1>
+        <Link href={`/event/${event.id}`}>
+          <h1 className="text-xl font-bold text-left">{event.name}</h1>
 
           {/* Can add multiple event types for hybrid events */}
           <div className="flex flex-wrap my-2">
@@ -51,13 +48,17 @@ const Event = ({ id }: { id: number }) => {
               {new Date(event.end_time).toLocaleTimeString()}
             </p>
           </div>
-        </button>
-      ) : event?.id != -1 ? (
+        </Link>
+      ) : isValidEvent ? (
         // Event is not visible
-        <button>Please login to view this event</button>
+        <button className="text-red-900">
+          Please login to view this event
+        </button>
       ) : (
         // Event does not exist
-        <div>This event does not exist or was removed.</div>
+        <div className="text-red-900">
+          This event does not exist or was removed.
+        </div>
       )}
     </div>
   );

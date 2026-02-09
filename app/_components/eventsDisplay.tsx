@@ -14,7 +14,7 @@ const EventsDisplay = () => {
     fetchEvents();
   }, []);
   return (
-    <div className="m-10 pt-20 flex flex-wrap justify-center">
+    <div className="flex flex-col gap-5 mx-20 justify-center">
       {events
         .sort(
           (a, b) =>

@@ -2,17 +2,6 @@ import { TEndpointResponse, TEvent } from "./types";
 
 const API_BASE_URL = "https://api.hackthenorth.com/v3";
 
-const eventDNEResponse: TEvent = {
-  id: -1,
-  name: "Event Does not Exist",
-  event_type: "workshop",
-  start_time: -1,
-  end_time: -1,
-  speakers: [],
-  private_url: "",
-  related_events: [],
-};
-
 // Get array of all events
 export const getEvents = async (): Promise<TEvent[]> => {
   try {
@@ -38,7 +27,7 @@ export const getEvent = async (id: number): Promise<TEvent> => {
 
     return data; // return an Event
   } catch (err) {
-    console.error("Error fetching event: ", id, err);
-    return eventDNEResponse;
+    console.error("Failed to fetch event with id: ", id, err);
+    throw new Error(`Failed to fetch event with id: ${id}`);
   }
 };
