@@ -3,7 +3,7 @@
 type TEventType = "workshop" | "activity" | "tech_talk";
 type TPermission = "public" | "private";
 
-type TSpeaker = {
+export type TSpeaker = {
   name: string;
 };
 

@@ -21,9 +21,9 @@ const EventsDisplay = () => {
             new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
         )
         .map((e: TEvent) => (
-          <a key={e.id}>
+          <div key={e.id}>
             <Event id={e.id} />
-          </a>
+          </div>
         ))}
     </div>
   );
