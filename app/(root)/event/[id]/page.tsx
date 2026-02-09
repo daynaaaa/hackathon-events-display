@@ -1,17 +1,19 @@
 "use client";
 import { getEvent } from "@/app/_lib/api";
-import { TEvent } from "@/app/_lib/types";
+import { TEvent, User } from "@/app/_lib/types";
 import { use, useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/app/_hooks/useAuth";
 import { toTitleCase } from "@/app/_lib/toTitleCase";
 
+const admin: User = { username: "hacker", password: "htn2026" };
+
 const EventPage = ({ params }: { params: Promise<{ id: number }> }) => {
   const [event, setEvent] = useState<TEvent>(); // Array of all events
   const { id } = use(params);
   const [isValidEvent, setIsValidEvent] = useState<boolean>(true);
-  const { user } = useAuth();
+  const { user, login } = useAuth();
   const [loading, setLoading] = useState(true);
 
   // Check if ID is valid and if user has permission to view
@@ -62,11 +64,11 @@ const EventPage = ({ params }: { params: Promise<{ id: number }> }) => {
       ) : isValidEvent ? (
         <div>
           {/* Event is not visible */}
-          <button className="text-red-900">
-            Please login to view this event
-          </button>
           <div className="text-xl pt-50 text-center mx-auto my-auto">
             <div className=" text-3xl">Please login to view this event</div>
+            <button className="text-sky-900" onClick={() => login(admin)}>
+              Login
+            </button>
           </div>
         </div>
       ) : (

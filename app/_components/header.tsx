@@ -2,9 +2,10 @@ import Link from "next/link";
 import { useAuth } from "../_hooks/useAuth";
 import { User } from "../_lib/types";
 
+const admin: User = { username: "hacker", password: "htn2026" };
+
 const Header = () => {
   const { user, login, logout } = useAuth();
-  const admin: User = { username: "hacker", password: "htn2026" };
 
   return (
     <div className="fixed top-0 left-0 right-0 flex justify-between items-center bg-sky-100 w-screen p-5 h-20 z-1">
