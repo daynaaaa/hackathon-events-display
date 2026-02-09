@@ -4,6 +4,8 @@ import { TEvent } from "@/app/_lib/types";
 import { useAuth } from "../_hooks/useAuth";
 import Link from "next/link";
 import { toTitleCase } from "../_lib/toTitleCase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Event = ({ id }: { id: number }) => {
   const [event, setEvent] = useState<TEvent>(); // Array of all events
@@ -40,20 +42,38 @@ const Event = ({ id }: { id: number }) => {
           <div>
             {/* Date */}
             {/* since no events span over a day */}
-            <p className="">
+            <p className="text-lg">
               <span className="font-bold">
-                {new Date(event.start_time).toLocaleDateString()}:{" "}
+                {new Date(event.start_time).toLocaleDateString()}
               </span>
-              {new Date(event.start_time).toLocaleTimeString()} -{" "}
-              {new Date(event.end_time).toLocaleTimeString()}
+              <span className="mx-2">|</span>
+              <span>
+                {new Date(event.start_time).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+              <span className="mx-2">−</span>
+              <span>
+                {new Date(event.end_time).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
             </p>
           </div>
         </Link>
       ) : isValidEvent ? (
         // Event is not visible
-        <button className="text-red-900">
-          Please login to view this event
-        </button>
+        <div>
+          <FontAwesomeIcon
+            icon={faLock}
+            className="text-red-900 w-5 h-5 inline mr-2"
+          />
+          <button className="text-red-900">
+            Please login to view this event
+          </button>
+        </div>
       ) : (
         // Event does not exist
         <div className="text-red-900">
